@@ -42,7 +42,11 @@ export class AuthController {
         if (await compare(password, user.password)) {
             res
                 .status(200)
-                .json();
+                .json({
+                    data: {
+                        username: user.username
+                    }
+                });
         } else {
             return next(unauthorized('Nombre de usuario o contraseña incorrectos'));
         }

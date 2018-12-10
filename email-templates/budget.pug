@@ -1,0 +1,52 @@
+doctype html
+html
+    body
+        h1.title Presupuesto para #{user.name} #{user.lastname}
+
+        h3.tile-userinfo Datos de la persona solicitante del presupuesto
+        table
+            tbody
+                tr
+                    td Nombres
+                    td #{user.name}
+                tr
+                    td Apellido
+                    td #{user.lastname}
+                tr
+                    td Cedula
+                    td #{user.cedula}
+                tr
+                    td RIF
+                    td #{user.rif}
+                tr
+                    td Correo
+                    td #{user.email}
+                tr
+                    td Telefono
+                    td #{user.phone}
+                tr
+                    td Dirección
+                    td #{user.address}
+                tr
+                    td Cantidad
+                    td #{user.amount}
+                tr
+                    td Unidad de medida
+                    td #{user.unidadDeMedida}
+                tr
+                    td Razon social
+                    td #{user.socialReason}
+                tr
+                    td Contribuyente especial
+                    td= user.contribuyente ? 'Si' : 'No'
+
+        br
+
+        h3 Lista de compra
+
+        table
+            tbody
+                each product in products
+                    tr
+                        td Producto
+                        td= product.productName

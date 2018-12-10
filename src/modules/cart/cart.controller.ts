@@ -4,7 +4,8 @@ import {createTransport} from "nodemailer";
 import {compileFile} from "pug";
 import {join} from "path";
 
-export class MessageController {
+export class CartController {
+
     private readonly transporter = createTransport({
         host: "smtp-mail.outlook.com", // hostname
         secure: false, // TLS requires secureConnection to be false
@@ -18,31 +19,30 @@ export class MessageController {
         }
     });
 
-    private readonly emailTemplate = compileFile(join(process.cwd(), 'email-templates', 'message.pug'));
+    private readonly emailTemplate = compileFile(join(process.cwd(), 'email-templates', 'budget.pug'));
+
 
     @bind
-    async sendMessage(req: Request, res: Response, next: NextFunction): Promise<any> {
+    async sendCart(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            console.log(req.body);
             const emailHtml = this.emailTemplate({
-                ...req.body
+                user: req.body.user,
+                products: req.body.products
             });
+
 
             await this.transporter.sendMail({
                 to: 'info@kavanarevestimientos.com',
-                subject: `${req.body.name} ${req.body.lastname} desea contactar con nuestro equipo`,
+                subject: `Presupuesto para ${req.body.user.name} ${req.body.user.lastname}`,
                 html: emailHtml
             });
 
-            res.status(200).json({
-                message: 'El mensaje ha sido enviado con exito. Por favor espere que nuestro se comunique con' +
-                    ' usted'
-            })
-
-        } catch (error) {
-            next(error);
+           res.status(200).json({
+               message: 'La lista de compra ha sido enviada con exito. Por favor espere que nuestro se comunique con' +
+                   ' usted'
+           })
+        } catch (e) {
+            next(e);
         }
     }
-
-
 }

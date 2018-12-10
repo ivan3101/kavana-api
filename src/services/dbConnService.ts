@@ -18,6 +18,7 @@ export class DbConnService {
             pass: dbConnParams.dbPassword,
             useNewUrlParser: true,
             user: dbConnParams.dbUsername,
+            useCreateIndex: true
         };
         this.dbConnectionPromise = connect(`mongodb://${dbConnParams.dbHost}:${dbConnParams.dbPort}`, config);
     }

@@ -15,8 +15,6 @@ export class MessageRoutes {
 
     private initRoutes() {
         this.router
-            .get('/', this.messageController.getMessages)
-
-            .post('/', this.messageController.addMessage)
+            .post('/', this.messageController.sendMessage)
     }
 }
