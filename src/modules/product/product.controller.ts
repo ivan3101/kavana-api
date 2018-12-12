@@ -171,7 +171,8 @@ export class ProductController {
         try {
             const { category } = req.params;
             const offset = parseInt(req.query.offset) || 0;
-            const limit = req.query.limit || 9;
+            const limit = parseInt(req.query.limit) || 9;
+            console.log(offset, limit, category)
 
             const products = this.Product
                 .find({
@@ -180,12 +181,13 @@ export class ProductController {
                 .skip(offset)
                 .limit(limit) as any;
 
+
             const totalProducts = this.Product.find({
                 'category': category
             }).count() as any;
 
             const promisesResolved = await Promise.all([products, totalProducts]);
-
+            console.log(promisesResolved[0])
             res
                 .status(200)
                 .json({
