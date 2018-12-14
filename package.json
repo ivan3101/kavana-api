@@ -26,9 +26,7 @@
     "mongoose": "^5.3.15",
     "morgan": "^1.9.1",
     "nodemailer": "^4.7.0",
-    "pug": "^2.0.3"
-  },
-  "devDependencies": {
+    "pug": "^2.0.3",
     "@types/axios": "^0.14.0",
     "@types/bcrypt": "^3.0.0",
     "@types/boom": "^7.2.1",
