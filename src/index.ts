@@ -26,38 +26,21 @@ const dbParams: IDbConnParams = {
             server.listen(port);
             server.on("listening", () => {
 
-                promises.stat(join(process.cwd(), 'uploads'))
+                promises.mkdir(join(process.cwd(), 'uploads'))
                     .then(_ => null)
-                    .catch(async err => {
-                        console.log(err, err.errno)
-                        if (err && err.errno === 34) {
-                            await promises.mkdir(join(process.cwd(), 'uploads'))
-                        }
-                    });
+                    .catch(_ => null);
 
-                promises.stat(join(process.cwd(), 'public', 'posts'))
+                promises.mkdir(join(process.cwd(), 'public', 'posts'))
                     .then(_ => null)
-                    .catch(async err => {
-                        if (err && err.errno === 34) {
-                            await promises.mkdir(join(process.cwd(), 'public', 'posts'));
-                        }
-                    });
+                    .catch(_ => null);
 
-                promises.stat(join(process.cwd(), 'public', 'products'))
+                promises.mkdir(join(process.cwd(), 'public', 'products'))
                     .then(_ => null)
-                    .catch(async err => {
-                        if (err && err.errno === 34) {
-                            await promises.mkdir(join(process.cwd(), 'public', 'products'));
-                        }
-                    });
+                    .catch(_ => null);
 
-                promises.stat(join(process.cwd(), 'public', 'slider'))
+                promises.mkdir(join(process.cwd(), 'public', 'slider'))
                     .then(_ => null)
-                    .catch(async err => {
-                        if (err && err.errno === 34) {
-                            await promises.mkdir(join(process.cwd(), 'public', 'slider'));
-                        }
-                    });
+                    .catch(_ => null);
 
                 process
                     .on('SIGINT', () => {
