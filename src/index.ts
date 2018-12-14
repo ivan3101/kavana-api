@@ -29,6 +29,7 @@ const dbParams: IDbConnParams = {
                 promises.stat(join(process.cwd(), 'uploads'))
                     .then(_ => null)
                     .catch(async err => {
+                        console.log(err, err.errno)
                         if (err && err.errno === 34) {
                             await promises.mkdir(join(process.cwd(), 'uploads'))
                         }
