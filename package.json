@@ -5,7 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "start-development": "nodemon",
-    "start-production": "npm run build && node ./dist/index.js",
+    "start": "npm run build && node ./dist/index.js",
     "build": "tsc"
   },
   "author": "Ivan De Menezes",
