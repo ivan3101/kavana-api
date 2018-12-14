@@ -29,6 +29,7 @@ export class SliderController {
     async addImage(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             const newSlider = new this.Slider(req.fields);
+            console.log(await promises.stat(join(process.cwd(), 'uploads')));
 
             const sliderImagesPath = join(process.cwd(), 'public', 'slider', newSlider._id.toString());
 
@@ -51,6 +52,7 @@ export class SliderController {
                 });
 
         } catch (e) {
+            console.log(e);
             next(e);
         }
     }

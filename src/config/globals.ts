@@ -1,8 +1,6 @@
 import { config } from "dotenv";
 config();
 
-console.log(process.env);
-
 export const variables = {
   db_host: process.env.DB_HOST,
   db_name: process.env.DB_NAME,
