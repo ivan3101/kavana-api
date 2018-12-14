@@ -17,6 +17,8 @@ const dbParams: IDbConnParams = {
     dbUsername: variables.db_username
 };
 
+console.log(variables);
+
 (
     async function () {
         try {
