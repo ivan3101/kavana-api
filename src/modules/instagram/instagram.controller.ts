@@ -16,7 +16,7 @@ export class InstagramController {
         const images = [];
         let i = 0;
 
-        while (images.length < 3) {
+        while (images.length < 6) {
             const node = mediaArray[i].node;
             i++;
             
