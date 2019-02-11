@@ -47,7 +47,7 @@ export class ProductController {
     async getProducts(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
             const offset = parseInt(req.query.offset) || 0;
-            const limit = req.query.limit || 9;
+            const limit = parseInt(req.query.limit) || 9;
 
             const products = this.Product
                 .find()
