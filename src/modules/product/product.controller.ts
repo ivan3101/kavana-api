@@ -51,6 +51,7 @@ export class ProductController {
 
             const products = this.Product
                 .find()
+                .sort("_id")
                 .skip(offset)
                 .limit(limit) as any;
 
