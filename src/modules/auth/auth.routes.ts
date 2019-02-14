@@ -16,6 +16,6 @@ export class AuthRoutes {
     private initRoutes(): void {
         this.router
             .post('/login', this.authController.login)
-            // .post('/register', this.authController.register)
+            .post('/register', this.authController.register)
     }
 }
