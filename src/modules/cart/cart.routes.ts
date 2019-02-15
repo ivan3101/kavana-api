@@ -14,6 +14,6 @@ export class CartRoutes {
     }
 
     private initRoutes() {
-        this.router.post('/', this.cartController.sendCart)
+        this.router.post('/:userId', this.cartController.sendCart)
     }
 }

@@ -3,6 +3,8 @@ import {Request, Response, NextFunction} from "express";
 import {createTransport} from "nodemailer";
 import {compileFile} from "pug";
 import {join} from "path";
+import {Model} from "mongoose";
+import {authModel, IAuth} from "../auth/auth.model";
 
 export class CartController {
 
@@ -21,19 +23,26 @@ export class CartController {
 
     private readonly emailTemplate = compileFile(join(process.cwd(), 'email-templates', 'budget.pug'));
 
+    private readonly Auth: Model<IAuth> = authModel;
+
 
     @bind
     async sendCart(req: Request, res: Response, next: NextFunction): Promise<any> {
+
+        const { userId } = req.params;
+
+        const user = await this.Auth.findById(userId);
+
         try {
             const emailHtml = this.emailTemplate({
-                user: req.body.user,
+                user,
                 products: req.body.products
             });
 
 
             await this.transporter.sendMail({
                 to: 'info@kavanarevestimientos.com',
-                subject: `Presupuesto para ${req.body.user.name} ${req.body.user.lastname}`,
+                subject: `Presupuesto para ${user.firstname} ${user.lastname}`,
                 html: emailHtml
             });
 
