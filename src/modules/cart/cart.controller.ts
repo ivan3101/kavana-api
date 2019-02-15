@@ -16,8 +16,8 @@ export class CartController {
             ciphers:'SSLv3'
         },
         auth: {
-            user: 'no.reply.kavana.revestimientos@outlook.com',
-            pass: 'v5V0S*1l'
+            user: 'correokavana@hotmail.com',
+            pass: 'adminKavana.'
         }
     });
 
@@ -41,7 +41,7 @@ export class CartController {
             });
 
             await this.transporter.sendMail({
-                to: 'info@kavanarevestimientos.com',
+                to: 'kavanayensuministros@gmail.com',
                 subject: `Presupuesto para ${user.firstname} ${user.lastname}`,
                 html: emailHtml
             });
@@ -51,6 +51,7 @@ export class CartController {
                    ' usted'
            })
         } catch (e) {
+            console.log(e)
             next(e);
         }
     }

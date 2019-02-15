@@ -13,8 +13,8 @@ export class MessageController {
             ciphers:'SSLv3'
         },
         auth: {
-            user: 'no.reply.kavana.revestimientos@outlook.com',
-            pass: 'v5V0S*1l'
+            user: 'correokavana@hotmail.com',
+            pass: 'adminKavana.'
         }
     });
 
