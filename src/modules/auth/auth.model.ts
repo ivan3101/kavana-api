@@ -8,7 +8,7 @@ export enum UserRole {
 export interface IAuth extends Document {
     username: string,
     password: string,
-    name: string,
+    firstname: string,
     lastname: string,
     identification: string,
     email: string,
@@ -27,7 +27,7 @@ const authSchema = new Schema({
         required: [true, 'Debe ingresar una contraseña'],
         trim: true
     },
-    name: {
+    firstname: {
         type: String,
         required: true,
         trim: true
