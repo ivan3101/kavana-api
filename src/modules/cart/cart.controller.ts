@@ -29,16 +29,16 @@ export class CartController {
     @bind
     async sendCart(req: Request, res: Response, next: NextFunction): Promise<any> {
 
-        const { userId } = req.params;
+        const userId = req.params.userId;
 
         const user = await this.Auth.findById(userId);
 
         try {
+
             const emailHtml = this.emailTemplate({
                 user,
                 products: req.body.products
             });
-
 
             await this.transporter.sendMail({
                 to: 'info@kavanarevestimientos.com',
