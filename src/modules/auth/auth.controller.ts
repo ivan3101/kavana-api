@@ -83,7 +83,8 @@ export class AuthController {
                 .json({
                     data: {
                         username: user.username,
-                        role: user.role
+                        role: user.role,
+                        _id: user._id
                     }
                 });
         } else {
