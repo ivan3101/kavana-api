@@ -17,8 +17,6 @@ export class AuthController {
                 email: email
             }).exec();
 
-            console.log(existEmailPromise);
-
             const existUsernamePromise = this.Auth.findOne({
                 username
             }).exec();
