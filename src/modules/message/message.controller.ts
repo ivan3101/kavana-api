@@ -23,14 +23,13 @@ export class MessageController {
     @bind
     async sendMessage(req: Request, res: Response, next: NextFunction): Promise<any> {
         try {
-            console.log(req.body);
             const emailHtml = this.emailTemplate({
                 ...req.body
             });
 
             await this.transporter.sendMail({
                 to: 'info@kavanarevestimientos.com',
-                subject: `${req.body.name} ${req.body.lastname} desea contactar con nuestro equipo`,
+                subject: `${req.body.name} desea contactar con nuestro equipo`,
                 html: emailHtml
             });
 

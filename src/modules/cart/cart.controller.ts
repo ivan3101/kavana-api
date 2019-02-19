@@ -42,7 +42,7 @@ export class CartController {
 
             await this.transporter.sendMail({
                 to: 'kavanayensuministros@gmail.com',
-                subject: `Presupuesto para ${user.firstname} ${user.lastname}`,
+                subject: `Presupuesto para ${user.name}`,
                 html: emailHtml
             });
 
@@ -51,7 +51,6 @@ export class CartController {
                    ' usted'
            })
         } catch (e) {
-            console.log(e)
             next(e);
         }
     }

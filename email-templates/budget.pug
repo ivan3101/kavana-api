@@ -1,17 +1,14 @@
 doctype html
 html
     body
-        h1.title Presupuesto para #{user.firstname} #{user.lastname}
+        h1.title Presupuesto para #{user.name}
 
         h3.tile-userinfo Datos de la persona solicitante del presupuesto
         table
             tbody
                 tr
-                    td Nombres
-                    td #{user.firstname}
-                tr
-                    td Apellido
-                    td #{user.lastname}
+                    td Nombre
+                    td #{user.name}
                 tr
                     td Cedula
                     td #{user.identification}
