@@ -9,5 +9,8 @@ export const variables = {
   db_username: process.env.DB_USERNAME,
   env: process.env.NODE_ENV,
   port: parseInt(process.env.PORT, 10) || 3000,
-  secret: process.env.SECRET
+  secret: process.env.SECRET,
+  aws_bucket: process.env.AWS_BUCKET,
+  aws_user_key: process.env.AWS_USER_KEY,
+  aws_user_secret: process.env.AWS_USER_SECRET
 };

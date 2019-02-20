@@ -1,86 +1,74 @@
-import {sliderModel} from "./slider.model";
-import {bind} from "decko";
-import {NextFunction, Request, Response} from "express";
-import {join} from "path";
-import {promises} from "fs";
+import { ISlider, sliderModel } from "./slider.model";
+import { bind } from "decko";
+import { NextFunction, Request, Response } from "express";
+import { UtilityService } from "../../services/utilityService";
+import { Model } from "mongoose";
 
 export class SliderController {
-    private readonly Slider = sliderModel;
+  private readonly Slider: Model<ISlider> = sliderModel;
 
-    @bind
-    async getAllImages(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const sliders = await this.Slider.find();
+  @bind
+  async getAllImages(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const sliders = await this.Slider.find();
 
-            res
-                .status(200)
-                .json({
-                    data: {
-                        sliders
-                    }
-                });
-
-        } catch (error) {
-            next(error);
+      res.status(200).json({
+        data: {
+          sliders
         }
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  @bind
+  async addImage(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const uploadedImage = await UtilityService.awsUpload(req.files.image);
+
+      const newSlider = new this.Slider({
+        image: uploadedImage.imagePath,
+        message: req.fields.message,
+        key: uploadedImage.key
+      });
+
+      await newSlider.save();
+
+      res.status(201).json({
+        message: "Imagen agregada satisfactoriamente"
+      });
+    } catch (e) {
+      next(e);
     }
 
-    @bind
-    async addImage(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const newSlider = new this.Slider(req.fields);
+    await UtilityService.deleteFile(req.files.image.path);
+  }
 
-            const sliderImagesPath = join(process.cwd(), 'public', 'slider', newSlider._id.toString());
+  @bind
+  async deleteImage(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const { sliderId } = req.params;
 
-            await promises.mkdir(sliderImagesPath);
+      const sliderDeleted = await this.Slider.findByIdAndDelete(sliderId);
 
-            const newImagePath = join(sliderImagesPath, req.files.image.name);
+      await UtilityService.awsDelete(sliderDeleted.key);
 
-            const imagePromise = promises.rename(req.files.image.path, newImagePath);
-
-            newSlider.image = `slider/${newSlider._id}/${req.files.image.name}`;
-
-            await imagePromise;
-
-            await newSlider.save();
-
-            res
-                .status(201)
-                .json({
-                    message: 'Imagen agregada satisfactoriamente'
-                });
-
-        } catch (e) {
-            console.log(e);
-            next(e);
-        }
+      res.status(204).json();
+    } catch (e) {
+      next(e);
     }
-
-    @bind
-    async deleteImage(req: Request, res: Response, next: NextFunction): Promise<any> {
-        try {
-            const { sliderId } = req.params;
-
-            await this.Slider.findByIdAndDelete(sliderId);
-
-            const directory = join(process.cwd(), 'public', 'slider', sliderId);
-
-            const files = await promises.readdir(directory);
-
-            const deletePromises = [];
-
-            for (const file of files) {
-                deletePromises.push(promises.unlink(join(directory, file)));
-            }
-
-            await Promise.all(deletePromises);
-
-            await promises.rmdir(directory);
-
-            res.status(204).json();
-
-        } catch (e) {
-            next(e);
-        }
-    }
+  }
 }

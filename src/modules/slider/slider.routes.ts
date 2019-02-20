@@ -21,8 +21,6 @@ export class SliderRoutes {
             .post('/', formidableMiddleware({
                 uploadDir: join(process.cwd(), 'uploads')
             }), this.sliderController.addImage)
-            .delete('/:sliderId', formidableMiddleware({
-                uploadDir: join(process.cwd(), 'uploads')
-            }), this.sliderController.deleteImage)
+            .delete('/:sliderId', this.sliderController.deleteImage)
     }
 }

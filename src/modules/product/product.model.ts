@@ -8,8 +8,14 @@ export interface IProduct extends Document{
     sizeByBox: string,
     piecesByBox: string,
     characteristics: string[],
-    icon: string,
-    banner: string,
+    icon: {
+        path: string,
+        key: string
+    },
+    banner: {
+        path: string,
+        key: string
+    },
     category: string
 }
 
@@ -20,8 +26,14 @@ const productSchema = new Schema({
     sizeByBox: String,
     piecesByBox: String,
     characteristics: [String],
-    icon: String,
-    banner: String,
+    icon: {
+        path: String,
+        key: String
+    },
+    banner: {
+        path: String,
+        key: String
+    },
     category: String
 });
 
