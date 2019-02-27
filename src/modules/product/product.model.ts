@@ -22,8 +22,14 @@ export interface IProduct extends Document{
 const productSchema = new Schema({
     name: String,
     sku: String,
-    size: String,
-    sizeByBox: String,
+    size: {
+        type: String,
+        default: "00x00"
+    },
+    sizeByBox: {
+        type: String,
+        default: "0"
+    },
     piecesByBox: String,
     characteristics: [String],
     icon: {
