@@ -41,7 +41,7 @@ export class CartController {
             });
 
             await this.transporter.sendMail({
-                to: 'kavanayensuministros@gmail.com',
+                to: 'info@kavanarevestimientos.com',
                 subject: `Presupuesto para ${user.name}`,
                 html: emailHtml
             });
