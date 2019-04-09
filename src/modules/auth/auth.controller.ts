@@ -1,5 +1,5 @@
 import {authModel, IAuth, UserRole} from "./auth.model";
-import {Model, Document} from "mongoose";
+import {Model} from "mongoose";
 import {bind} from "decko";
 import {NextFunction, Request, Response} from "express";
 import {conflict, unauthorized} from "boom";
@@ -89,6 +89,39 @@ export class AuthController {
                 });
         } else {
             return next(unauthorized('Nombre de usuario o contraseña incorrectos'));
+        }
+    }
+
+    @bind
+    async recoverPassword(req: Request, res: Response, next: NextFunction): Promise<any> {
+        try {
+            const {username, email, password} = req.body;
+
+            const user = await this.Auth.findOne({
+                "email": email
+            });
+
+            if (!user) {
+                return next(unauthorized("Nombre de Usuario o Correo electronico invalidos"))
+            }
+
+            const isUsername = user.username === username;
+
+            if (isUsername) {
+                const hashedPassword = await hash(password, 15);
+
+                user.password = hashedPassword;
+
+                await user.save();
+
+                res
+                    .status(204)
+                    .json();
+            } else {
+                return next(unauthorized("Nombre de Usuario o Correo electronico invalidos"));
+            }
+        } catch (error) {
+            next(error);
         }
     }
 }

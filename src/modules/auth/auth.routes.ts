@@ -17,5 +17,6 @@ export class AuthRoutes {
         this.router
             .post('/login', this.authController.login)
             .post('/register', this.authController.register)
+            .post("/recovery", this.authController.recoverPassword)
     }
 }
