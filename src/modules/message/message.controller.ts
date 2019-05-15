@@ -34,7 +34,8 @@ export class MessageController {
             });
 
             res.status(200).json({
-                message: 'El mensaje ha sido enviado con exito. Por favor espere que nuestro se comunique con' +
+                message: 'El mensaje ha sido enviado con exito. Por favor espere que nuestros asesores se comuniquen' +
+                  ' con' +
                     ' usted'
             })
 

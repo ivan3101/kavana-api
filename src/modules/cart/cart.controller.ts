@@ -48,7 +48,7 @@ export class CartController {
 
            res.status(200).json({
                message: 'La lista de compra ha sido enviada con exito. Por favor espere que nuestros asesores se' +
-                 ' comunique con' +
+                 ' comuniquen con' +
                    ' usted'
            })
         } catch (e) {
