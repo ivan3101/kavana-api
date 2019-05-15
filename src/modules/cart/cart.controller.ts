@@ -47,7 +47,8 @@ export class CartController {
             });
 
            res.status(200).json({
-               message: 'La lista de compra ha sido enviada con exito. Por favor espere que nuestro se comunique con' +
+               message: 'La lista de compra ha sido enviada con exito. Por favor espere que nuestros asesores se' +
+                 ' comunique con' +
                    ' usted'
            })
         } catch (e) {
